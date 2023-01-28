@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #d3e4cd;
+}
+
+#__next {
+  display: flex;
+  justify-content: center;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow: clip;
+}
+
+h1,
+h2,
+p,
+a {
+  color: #2a1f2d;
+  letter-spacing: -0.025em;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+p {
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.65;
+}
