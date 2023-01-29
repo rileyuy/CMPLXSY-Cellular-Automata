@@ -10,10 +10,19 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [cellCount, setCellCount] = useState(10);
-  const [rule, setRule] = useState(110);
+  const [rule, setRule] = useState(0);
   const [isActive, setIsActive] = useState(false);
+
   function toggleActive() {
     setIsActive(!isActive);
+  }
+
+  function handleRuleChange(event) {
+    setRule(event?.target?.value);
+  }
+
+  function handleCellCountChange(event) {
+    setCellCount(event?.target?.value);
   }
 
   return (
@@ -28,28 +37,27 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="w-screen h-full">
-        <h1 className="text-3xl">Elementary Cellular Automata</h1>
+        <PageHeader rule={rule} />
         <div>
           <label>Rule: </label>
           <input
             type="number"
-            id="quantity"
-            name="quantity"
-            min="1"
-            max="256"
+            min="0"
+            max="255"
             step="1"
             className="border-2 border-black rounded-md"
+            onInput={console.log(this)}
+            onChange={handleRuleChange}
           ></input>
           <label>Size: </label>
 
           <input
             type="number"
-            id="quantity"
-            name="quantity"
             min="1"
             max="100"
             step="1"
             className="border-2 border-black rounded-md"
+            onChange={handleCellCountChange}
           ></input>
 
           <button
@@ -62,7 +70,7 @@ export default function Home() {
           </button>
         </div>
         <div className="w-full h-full pl-12 pt-12">
-          <CellGrid cellCount={cellCount} rule={rule} isActive={isActive}/>
+          <CellGrid cellCount={cellCount} rule={rule} isActive={isActive} />
         </div>
       </main>
     </>

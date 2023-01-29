@@ -2,7 +2,24 @@ import Rule from "./Rule";
 
 import ruleHeaders from "../utils/ruleHeaders";
 
-export default function PageHeader() {
+export default function PageHeader({ rule }) {
+  let ruleBinaryArray;
+
+  function ruleToBitArray({ rule }) {
+    let array = [0, 0, 0, 0, 0, 0, 0, 0];
+    let ruleBinaryString = parseInt(rule).toString(2);
+
+    for (let ctr = 0; ctr < ruleBinaryString.length; ctr++) {
+      array[array.length - 1 - ctr] = parseInt(
+        ruleBinaryString[ruleBinaryString.length - 1 - ctr]
+      );
+    }
+
+    return array;
+  }
+
+  ruleBinaryArray = ruleToBitArray({ rule });
+
   return (
     <>
       <div className="flex flex-col w-full justify-center items-center">
@@ -18,7 +35,13 @@ export default function PageHeader() {
           <h2 className="mb-8">Here are the rules</h2>
           <div className=" grid gap-6 sm:grid-cols-2 lg:grid-cols-4 xxxl:grid-cols-8">
             {ruleHeaders.map((header, key) => {
-              return <Rule key={key} header={header} />;
+              return (
+                <Rule
+                  key={key}
+                  header={header}
+                  ruleBit={ruleBinaryArray[key]}
+                />
+              );
             })}
           </div>
         </div>
