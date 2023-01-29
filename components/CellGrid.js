@@ -24,6 +24,7 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
     ruleValue = rules.find((rule, index) => {
       if (rule === substring) return index;
     });
+    console.log (ruleValue)
 
     return ruleString.charAt(ruleValue);
   }
@@ -45,22 +46,23 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
           // console.log(gridRowString);
 
           gridRowString = "0" + gridRowString + "0";
+          console.log(gridRowString);
+
           if (gridCol === 0) {
             //special computation wtih invisivle cells on left and right
+            console.log(gridRowString.slice(0, 3));
 
             columnCells.push(calculateRuleValue(gridRowString.slice(0, 2)));
           } else if (gridCol === cellCount - 1) {
+            console.log(gridRowString.slice(-3, gridRowString.length));
+
             columnCells.push(
-              calculateRuleValue(
-                gridRowString.slice(
-                  gridRowString.length - 3,
-                  gridRowString.length - 1
-                )
-              )
+              calculateRuleValue(gridRowString.slice(-3, gridRowString.length))
             );
           } else {
+            console.log(gridRowString.slice(gridCol, gridCol + 3));
             columnCells.push(
-              calculateRuleValue(gridRowString.slice(1 + gridCol, 2 + gridCol))
+              calculateRuleValue(gridRowString.slice(gridCol, gridCol + 3))
             );
           }
         } else {
@@ -96,12 +98,13 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
         // console.log (columns)
         return (
           <div className="flex flex-row w-full">
-            {columns.map((columnCell) => (
+            {columns.map((columnCell,k) => (
               <Grid
                 item
                 className={`border-1 border-black border w-fit ${
                   columnCell === 1 ? "bg-black" : "bg-white"
                 }`}
+                key={i+k}
               >
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
               </Grid>
