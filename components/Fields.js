@@ -15,7 +15,11 @@ export default function Fields({
   setCellCount,
   isActive,
   setIsActive,
+  startCell,
+  setStartCell,
 }) {
+  const MIN_START_CELL = 0;
+  const MAX_START_CELL = cellCount-1;
   function handleFieldChange({ event, setValue, minValue, maxValue }) {
     setValue((currentValue) => {
       if (event?.target?.validity?.valid) {
@@ -127,6 +131,41 @@ export default function Fields({
                     setValue: setCellCount,
                     minValue: MIN_ROW_WIDTH,
                     maxValue: MAX_ROW_WIDTH,
+                    operator: "+",
+                  })
+                }
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div className={classNames(styles["field-container"])}>
+            <label>Start Cell (Black Cell Index)</label>
+            <div className="flex flex-row justify-center items-center gap-2">
+              <input value={startCell} disabled={true} />
+              <button
+                className={classNames(styles["spinner-button"])}
+                onClick={() =>
+                  handleSpinnerClick({
+                    value: startCell,
+                    setValue: setStartCell,
+                    minValue: MIN_START_CELL,
+                    maxValue: MAX_START_CELL,
+                    operator: "-",
+                  })
+                }
+              >
+                -
+              </button>
+              <button
+                className={classNames(styles["spinner-button"])}
+                onClick={() =>
+                  handleSpinnerClick({
+                    value: startCell,
+                    setValue: setStartCell,
+                    minValue: MIN_START_CELL,
+                    maxValue: MAX_START_CELL,
                     operator: "+",
                   })
                 }

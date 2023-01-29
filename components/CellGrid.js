@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 
-export default function CellGrid({ cellCount, rule, isActive }) {
+export default function CellGrid({ cellCount, rule, isActive, startCell }) {
   function decimalToBinary(dec) {
     return (dec >>> 0).toString(2);
   }
@@ -30,7 +30,9 @@ export default function CellGrid({ cellCount, rule, isActive }) {
     let columnCells = [];
     for (let gridCol = 0; gridCol < cellCount; gridCol++) {
       if (gridRow === 0) {
-        columnCells.push(gridCol === Math.ceil(cellCount / 2) ? "1" : "0");
+        if (startCell < cellCount){
+          columnCells.push(gridCol === startCell ? "1" : "0");
+        }
       } else {
         if (isActive) {
           let gridRowString = prevCells.join("");

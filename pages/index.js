@@ -9,6 +9,7 @@ export default function Home() {
   const [rule, setRule] = useState(10);
   const [cellCount, setCellCount] = useState(10);
   const [isActive, setIsActive] = useState(false);
+  const [startCell, setStartCell] = useState(Math.ceil(cellCount / 2));
 
   return (
     <>
@@ -30,8 +31,15 @@ export default function Home() {
           setCellCount={setCellCount}
           isActive={isActive}
           setIsActive={setIsActive}
+          startCell={startCell}
+          setStartCell={setStartCell}
         />
-        <Grid cellCount={cellCount} rule={rule} isActive={isActive} />
+        <Grid
+          cellCount={cellCount}
+          rule={rule}
+          startCell={startCell}
+          isActive={isActive}
+        />
       </main>
     </>
   );
