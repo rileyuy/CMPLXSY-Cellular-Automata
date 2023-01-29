@@ -1,10 +1,20 @@
 import { Grid } from "@mui/material";
 import { useState, useEffect } from "react";
+import Cell from "./Cell";
 
 export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
-  // console.log(cellCount);
-  // console.log(rule);
-  // console.log(isActive);
+  const [cellOverride, setCellOverride] = useState(initializeCellOverride());
+
+  console.log(cellOverride);
+
+  function initializeCellOverride() {
+    let tempArr = [];
+    for (let i = 0; i < cellCount; i++) {
+      tempArr.push("0");
+    }
+    return tempArr;
+  }
+
   function decimalToBinary(dec) {
     return (dec >>> 0).toString(2);
   }
@@ -44,13 +54,16 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
     let columnCells = [];
     for (let gridCol = 0; gridCol < cellCount; gridCol++) {
       if (gridRow === 0) {
-        columnCells.push(gridCol === Math.ceil(cellCount / 2) ? "1" : "0");
+        columnCells.push("0");
       } else {
         if (isActive) {
           let gridRowString = prevCells.join("");
           // console.log(gridRowString);
-          let gridRowStringTemp =gridRowString
-          gridRowString = gridRowStringTemp.charAt(gridRowString.length-1) + gridRowString + gridRowStringTemp.charAt(0);
+          let gridRowStringTemp = gridRowString;
+          gridRowString =
+            gridRowStringTemp.charAt(gridRowString.length - 1) +
+            gridRowString +
+            gridRowStringTemp.charAt(0);
           // console.log(gridRowString);
 
           if (gridCol === 0) {
@@ -80,8 +93,9 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
     columnCells = [];
   }
 
+
   return (
-    <Grid container spacing={5} className="w-full h-full">
+    <div className="w-full h-full">
       {/* {colData.map((colComponent, i) => {
         console.log("Row number: " + i);
         return (
@@ -104,19 +118,17 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
         return (
           <div className="flex flex-row w-full">
             {columns.map((columnCell, k) => (
-              <Grid
-                item
-                className={`border-1 border-black border w-fit ${
-                  columnCell === "1" ? "bg-black" : "bg-white"
-                }`}
-                key={i + k}
-              >
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-              </Grid>
+              <Cell
+                columnCell={columnCell}
+                inputRow={cellOverride}
+                changeInputRow={setCellOverride}
+                row={i}
+                col={k}
+              />
             ))}
           </div>
         );
       })}
-    </Grid>
+    </div>
   );
 }
