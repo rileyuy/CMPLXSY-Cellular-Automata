@@ -2,9 +2,9 @@ import { Grid } from "@mui/material";
 import { useState, useEffect } from "react";
 
 export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
-  console.log(cellCount);
-  console.log(rule);
-  console.log(isActive);
+  // console.log(cellCount);
+  // console.log(rule);
+  // console.log(isActive);
   function decimalToBinary(dec) {
     return (dec >>> 0).toString(2);
   }
@@ -16,7 +16,7 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
   }
 
   function calculateRuleValue(substring) {
-    console.log ("Substring: "+substring)
+    // console.log("Substring: " + substring);
     let rules = ["111", "110", "101", "100", "011", "010", "001", "000"];
     let ruleString = pad(decimalToBinary(rule), 8);
     let ruleValue = -1;
@@ -39,10 +39,10 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
       } else {
         // console.log ("checking...")
         if (isActive) {
-          console.log(gridRow);
-          console.log("active...");
+          // console.log(gridRow);
+          // console.log("active...");
           let gridRowString = prevCells.join("");
-          console.log(gridRowString);
+          // console.log(gridRowString);
 
           gridRowString = "0" + gridRowString + "0";
           if (gridCol === 0) {
