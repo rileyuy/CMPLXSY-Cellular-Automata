@@ -31,9 +31,9 @@ export default function PageHeader({ rule }) {
             By 🤠 Riley Uy and 🦧 Vince Esquivel
           </p>
         </div>
-        {/* <div className="w-full py-12 flex flex-col justify-center items-center">
+         <div className="w-full py-12 flex flex-col justify-center items-center">
           <h2 className="mb-8">Here are the rules</h2>
-          <div className=" grid gap-6 sm:grid-cols-2 lg:grid-cols-4 xxxl:grid-cols-8">
+          <div className=" grid gap-6 xxs:grid-cols-2 lg:grid-cols-4 xxxl:grid-cols-8">
             {ruleHeaders.map((header, key) => {
               return (
                 <Rule
@@ -44,7 +44,7 @@ export default function PageHeader({ rule }) {
               );
             })}
           </div>
-        </div> */}
+        </div> 
       </div>
     </>
   );

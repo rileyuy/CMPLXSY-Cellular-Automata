@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-import styles from "../styles/Rules.module.css";
+import styles from "../styles/_Rule.module.css";
 
 export default function Rule({ header, ruleBit }) {
   let bottomTileColor = "bg-transparent";

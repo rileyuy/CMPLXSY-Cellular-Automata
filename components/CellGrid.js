@@ -21,10 +21,18 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
     let ruleString = pad(decimalToBinary(rule), 8);
     let ruleValue = -1;
 
-    ruleValue = rules.find((rule, index) => {
-      if (rule === substring) return index;
+    console.log(rules);
+    console.log(substring);
+    console.log(
+      rules.findIndex((rule) => {
+        return rule === substring;
+      })
+    );
+
+    ruleValue = rules.findIndex((rule) => {
+      return rule === substring;
     });
-    console.log (ruleValue)
+    console.log(ruleValue);
 
     return ruleString.charAt(ruleValue);
   }
@@ -36,23 +44,20 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
     let columnCells = [];
     for (let gridCol = 0; gridCol < cellCount; gridCol++) {
       if (gridRow === 0) {
-        columnCells.push(gridCol === Math.ceil(cellCount / 2) ? 1 : 0);
+        columnCells.push(gridCol === Math.ceil(cellCount / 2) ? "1" : "0");
       } else {
-        // console.log ("checking...")
         if (isActive) {
-          // console.log(gridRow);
-          // console.log("active...");
           let gridRowString = prevCells.join("");
           // console.log(gridRowString);
-
-          gridRowString = "0" + gridRowString + "0";
-          console.log(gridRowString);
+          let gridRowStringTemp =gridRowString
+          gridRowString = gridRowStringTemp.charAt(gridRowString.length-1) + gridRowString + gridRowStringTemp.charAt(0);
+          // console.log(gridRowString);
 
           if (gridCol === 0) {
             //special computation wtih invisivle cells on left and right
             console.log(gridRowString.slice(0, 3));
 
-            columnCells.push(calculateRuleValue(gridRowString.slice(0, 2)));
+            columnCells.push(calculateRuleValue(gridRowString.slice(0, 3)));
           } else if (gridCol === cellCount - 1) {
             console.log(gridRowString.slice(-3, gridRowString.length));
 
@@ -66,7 +71,7 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
             );
           }
         } else {
-          columnCells.push(0);
+          columnCells.push("0");
         }
       }
     }
@@ -93,18 +98,18 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
           <div className="w-fit">{columns.map((columnCell) => columnCell)}</div>
         );
       })} */}
-
+      {console.log(gridData)}
       {gridData.map((columns, i) => {
         // console.log (columns)
         return (
           <div className="flex flex-row w-full">
-            {columns.map((columnCell,k) => (
+            {columns.map((columnCell, k) => (
               <Grid
                 item
                 className={`border-1 border-black border w-fit ${
-                  columnCell === 1 ? "bg-black" : "bg-white"
+                  columnCell === "1" ? "bg-black" : "bg-white"
                 }`}
-                key={i+k}
+                key={i + k}
               >
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
               </Grid>
