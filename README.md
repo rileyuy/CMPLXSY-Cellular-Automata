@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## About 1D Elementary Cellular Automata
+
+It is a one-dimensional cellular automaton where the state of each of the cells in a grid are denoted by one of two states (shaded or not shaded) and are determined by a set of rules. These rules are made by a cell and its two neighbors, and these three cells would define the state of the middle cell below these three neighboring cells.
+
 ## Getting Started
 
 First, run the development server:
