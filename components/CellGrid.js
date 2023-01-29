@@ -1,10 +1,6 @@
 import { Grid } from "@mui/material";
-import { useState, useEffect } from "react";
 
-export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
-  // console.log(cellCount);
-  // console.log(rule);
-  // console.log(isActive);
+export default function CellGrid({ cellCount, rule, isActive }) {
   function decimalToBinary(dec) {
     return (dec >>> 0).toString(2);
   }
@@ -16,23 +12,13 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
   }
 
   function calculateRuleValue(substring) {
-    // console.log("Substring: " + substring);
     let rules = ["111", "110", "101", "100", "011", "010", "001", "000"];
     let ruleString = pad(decimalToBinary(rule), 8);
     let ruleValue = -1;
 
-    console.log(rules);
-    console.log(substring);
-    console.log(
-      rules.findIndex((rule) => {
-        return rule === substring;
-      })
-    );
-
     ruleValue = rules.findIndex((rule) => {
       return rule === substring;
     });
-    console.log(ruleValue);
 
     return ruleString.charAt(ruleValue);
   }
@@ -48,24 +34,20 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
       } else {
         if (isActive) {
           let gridRowString = prevCells.join("");
-          // console.log(gridRowString);
-          let gridRowStringTemp =gridRowString
-          gridRowString = gridRowStringTemp.charAt(gridRowString.length-1) + gridRowString + gridRowStringTemp.charAt(0);
-          // console.log(gridRowString);
+          let gridRowStringTemp = gridRowString;
+          gridRowString =
+            gridRowStringTemp.charAt(gridRowString.length - 1) +
+            gridRowString +
+            gridRowStringTemp.charAt(0);
 
           if (gridCol === 0) {
             //special computation wtih invisivle cells on left and right
-            console.log(gridRowString.slice(0, 3));
-
             columnCells.push(calculateRuleValue(gridRowString.slice(0, 3)));
           } else if (gridCol === cellCount - 1) {
-            console.log(gridRowString.slice(-3, gridRowString.length));
-
             columnCells.push(
               calculateRuleValue(gridRowString.slice(-3, gridRowString.length))
             );
           } else {
-            console.log(gridRowString.slice(gridCol, gridCol + 3));
             columnCells.push(
               calculateRuleValue(gridRowString.slice(gridCol, gridCol + 3))
             );
@@ -81,42 +63,23 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
   }
 
   return (
-    <Grid container spacing={5} className="w-full h-full">
-      {/* {colData.map((colComponent, i) => {
-        console.log("Row number: " + i);
-        return (
-          <div className="w-fit">
-            {rowData.map((rowComponent, k) => {
-              console.log("Col number: " + k);
-              return colComponent;
-            })}
-          </div>
-        );
-      })} */}
-      {/* {gridData.map((columns, i) => {
-        return (
-          <div className="w-fit">{columns.map((columnCell) => columnCell)}</div>
-        );
-      })} */}
-      {console.log(gridData)}
-      {gridData.map((columns, i) => {
-        // console.log (columns)
-        return (
-          <div className="flex flex-row w-full">
-            {columns.map((columnCell, k) => (
-              <Grid
-                item
-                className={`border-1 border-black border w-fit ${
-                  columnCell === "1" ? "bg-black" : "bg-white"
-                }`}
-                key={i + k}
-              >
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-              </Grid>
-            ))}
-          </div>
-        );
-      })}
-    </Grid>
+    <div className="border border-[#2a1f2d] drop-shadow-xl">
+      <Grid>
+        {gridData.map((columns, i) => {
+          return (
+            <div key={i} className="flex flex-row w-full">
+              {columns.map((columnCell, k) => (
+                <Grid
+                  className={`border border-[#2a1f2d] w-10 h-10 ${
+                    columnCell === "1" ? "bg-[#2a1f2d]" : "bg-white"
+                  }`}
+                  key={i + k}
+                />
+              ))}
+            </div>
+          );
+        })}
+      </Grid>
+    </div>
   );
 }

@@ -1,0 +1,11 @@
+.field-container {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.spinner-button {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+}
