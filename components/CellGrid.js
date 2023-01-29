@@ -1,7 +1,6 @@
 import { Grid } from "@mui/material";
-import { useState, useEffect } from "react";
 
-export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
+export default function CellGrid({ cellCount, rule, isActive }) {
   function decimalToBinary(dec) {
     return (dec >>> 0).toString(2);
   }
@@ -64,21 +63,23 @@ export default function CellGrid({ cellCount = 16, rule = 110, isActive }) {
   }
 
   return (
-    <Grid container spacing={5} className="w-full h-full">
-      {gridData.map((columns, i) => {
-        return (
-          <div className="flex flex-row w-full">
-            {columns.map((columnCell, k) => (
-              <Grid
-                className={`border-1 border-black border w-10 h-10 ${
-                  columnCell === "1" ? "bg-black" : "bg-white"
-                }`}
-                key={i + k}
-              />
-            ))}
-          </div>
-        );
-      })}
-    </Grid>
+    <div className="border border-[#2a1f2d] drop-shadow-xl">
+      <Grid>
+        {gridData.map((columns, i) => {
+          return (
+            <div key={i} className="flex flex-row w-full">
+              {columns.map((columnCell, k) => (
+                <Grid
+                  className={`border border-[#2a1f2d] w-10 h-10 ${
+                    columnCell === "1" ? "bg-[#2a1f2d]" : "bg-white"
+                  }`}
+                  key={i + k}
+                />
+              ))}
+            </div>
+          );
+        })}
+      </Grid>
+    </div>
   );
 }

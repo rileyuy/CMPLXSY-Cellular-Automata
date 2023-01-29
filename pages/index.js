@@ -13,10 +13,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Elementary Cellular Automata Simulator</title>
+        <title>1D Elementary Cellular Automata Simulator</title>
         <meta
           name="description"
-          content="Elementary Cellular Automata Simulator"
+          content="1D Elementary Cellular Automata Simulator"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

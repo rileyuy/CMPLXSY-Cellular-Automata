@@ -43,7 +43,8 @@ h2 {
 p,
 input,
 label,
-button {
+button,
+a {
   font-size: 1rem;
   font-weight: 500;
 }
@@ -84,4 +85,10 @@ button {
 button:hover {
   background-color: #efefef;
   filter: none;
+}
+
+button:focus {
+  background-color: #fff;
+  filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03))
+    drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
 }

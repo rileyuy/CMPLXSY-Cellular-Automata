@@ -54,7 +54,7 @@ export default function Fields({
   return (
     <>
       <div className="flex flex-col gap-12 justify-center items-center">
-        <div className="flex flex-row gap-12 ">
+        <div className="grid gap-8 xxs:grid-cols-1 md:grid-cols-2">
           <div className={classNames(styles["field-container"])}>
             <label>Rule</label>
             <div className="flex flex-row justify-center items-center gap-2">
@@ -136,13 +136,8 @@ export default function Fields({
             </div>
           </div>
         </div>
-        <button
-          // className={`border-2 border-black rounded-md ${
-          //   isActive ? "bg-green-400" : "bg-red-500"
-          // }`}
-          onClick={() => setIsActive(!isActive)}
-        >
-          Generate Table
+        <button onClick={() => setIsActive(!isActive)}>
+          {isActive ? "Clear grid" : "Generate grid"}
         </button>
       </div>
     </>
