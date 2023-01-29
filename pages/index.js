@@ -6,7 +6,7 @@ import Fields from "@/components/Fields";
 import Grid from "@/components/Grid";
 
 export default function Home() {
-  const [rule, setRule] = useState(0);
+  const [rule, setRule] = useState(10);
   const [cellCount, setCellCount] = useState(10);
   const [isActive, setIsActive] = useState(false);
 

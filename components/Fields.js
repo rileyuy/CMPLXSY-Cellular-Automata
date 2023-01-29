@@ -1,4 +1,11 @@
-const MAX_RULE_VALUE = 256;
+import classNames from "classnames";
+
+import styles from "../styles/_Fields.module.css";
+
+const MIN_RULE_VALUE = 0;
+const MAX_RULE_VALUE = 255;
+
+const MIN_ROW_WIDTH = 1;
 const MAX_ROW_WIDTH = 100;
 
 export default function Fields({
@@ -9,45 +16,126 @@ export default function Fields({
   isActive,
   setIsActive,
 }) {
-  function handleFieldChange({ event, setValue, maxValue }) {
+  function handleFieldChange({ event, setValue, minValue, maxValue }) {
     setValue((currentValue) => {
       if (event?.target?.validity?.valid) {
-        if (event?.target?.value > maxValue) return maxValue - 1;
+        if (event?.target?.value > maxValue) return maxValue;
+        else if (event?.target?.value < minValue) return minValue;
+        else if (!event?.target?.value) return minValue;
         return event?.target?.value;
       } else return currentValue;
     });
   }
 
+  function handleSpinnerClick({
+    value,
+    setValue,
+    minValue,
+    maxValue,
+    operator,
+  }) {
+    switch (operator) {
+      case "+":
+        setValue((currentValue) => {
+          if (value >= maxValue) return parseInt(value);
+          return parseInt(currentValue) + 1;
+        });
+        break;
+      case "-":
+        setValue((currentValue) => {
+          if (value <= minValue) return parseInt(value);
+          return parseInt(currentValue) - 1;
+        });
+      default:
+        break;
+    }
+  }
+
   return (
     <>
-      <div>
-        <label>Rule: </label>
-        <input
-          type="text"
-          pattern="[0-9]*"
-          value={rule}
-          onChange={(event) =>
-            handleFieldChange({
-              event: event,
-              setValue: setRule,
-              maxValue: MAX_RULE_VALUE,
-            })
-          }
-        />
-        <label>Size: </label>
-        <input
-          type="text"
-          pattern="[0-9]*"
-          value={cellCount}
-          onChange={(event) =>
-            handleFieldChange({
-              event: event,
-              setValue: setCellCount,
-              maxValue: MAX_ROW_WIDTH,
-            })
-          }
-        />
-
+      <div className="flex flex-col gap-12 justify-center items-center">
+        <div className="flex flex-row gap-12 ">
+          <div className={classNames(styles["field-container"])}>
+            <label>Rule</label>
+            <div className="flex flex-row justify-center items-center gap-2">
+              <input
+                type="text"
+                pattern="[0-9]*"
+                value={rule}
+                onChange={(event) =>
+                  handleFieldChange({
+                    event: event,
+                    setValue: setRule,
+                    minValue: MIN_RULE_VALUE,
+                    maxValue: MAX_RULE_VALUE,
+                  })
+                }
+              />
+              <button
+                className={classNames(styles["spinner-button"])}
+                onClick={() =>
+                  handleSpinnerClick({
+                    value: rule,
+                    setValue: setRule,
+                    minValue: MIN_RULE_VALUE,
+                    maxValue: MAX_RULE_VALUE,
+                    operator: "-",
+                  })
+                }
+              >
+                -
+              </button>
+              <button
+                className={classNames(styles["spinner-button"])}
+                onClick={() =>
+                  handleSpinnerClick({
+                    value: rule,
+                    setValue: setRule,
+                    minValue: MIN_RULE_VALUE,
+                    maxValue: MAX_RULE_VALUE,
+                    operator: "+",
+                  })
+                }
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <div className={classNames(styles["field-container"])}>
+            <label>Grid Size</label>
+            <div className="flex flex-row justify-center items-center gap-2">
+              <input value={cellCount} disabled={true} />
+              <button
+                className={classNames(styles["spinner-button"])}
+                onClick={() =>
+                  handleSpinnerClick({
+                    value: cellCount,
+                    setValue: setCellCount,
+                    minValue: MIN_ROW_WIDTH,
+                    maxValue: MAX_ROW_WIDTH,
+                    operator: "-",
+                  })
+                }
+              >
+                -
+              </button>
+              <button
+                className={classNames(styles["spinner-button"])}
+                onClick={() =>
+                  handleSpinnerClick({
+                    value: cellCount,
+                    setValue: setCellCount,
+                    minValue: MIN_ROW_WIDTH,
+                    maxValue: MAX_ROW_WIDTH,
+                    operator: "+",
+                  })
+                }
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </div>
         <button
           // className={`border-2 border-black rounded-md ${
           //   isActive ? "bg-green-400" : "bg-red-500"
